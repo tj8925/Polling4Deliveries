@@ -1,6 +1,7 @@
 import requests
 from datetime import datetime, timedelta
 from pushbullet import Pushbullet
+import os
 
 url = 'https://groceries.asda.com/api/v3/slot/view'
 
