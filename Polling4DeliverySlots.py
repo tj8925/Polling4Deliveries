@@ -6,9 +6,9 @@ import os
 url = 'https://groceries.asda.com/api/v3/slot/view'
 
 # Config Section - os.environ['xxx']
-_days = os.environ['AdvDays']
+_days = 14
 _postCode = os.environ['PostCode']
-_maxPrice = os.environ['MaxPrice']
+_maxPrice = 7
 _pbApiKey = os.environ['PbApiKey']
 
 startDate = datetime.today().date().strftime('%Y-%m-%dT%H:%M:%S')
@@ -68,7 +68,7 @@ for dayData in retVal.json()['data']['slot_days']:
         slot_status = slot_info['status']
         # parse the start date as a date time object using the json formatted date time from the json T:Z
         pSlot_start = datetime.strptime(slot_start, '%Y-%m-%dT%H:%M:%SZ')
-        if (slot_status == 'AVAILABLE' and slot_price < _maxPrice):
+        if (slot_status == 'AVAILABLE' and slot_price <= _maxPrice):
             #print(slot_info)
             availableDateTimes.append(('\n' if (len(availableDateTimes) > 0) else '') 
             + pSlot_start.strftime('%d-%m-%Y %H:%M:%S') + ' - Now ' + slot_status.title() + f' at £{slot_price:.2f}')
