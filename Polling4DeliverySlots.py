@@ -77,6 +77,6 @@ if (len(availableDateTimes) > 0):
     sList = f'{" ".join(availableDateTimes)}'
     pb = Pushbullet(_pbApiKey)
     print (sList)
-    #push = pb.push_note("Asda Checker", sList)
+    push = pb.push_note("Asda Checker", sList)
 else:
     print('No slots at: ' + datetime.today().time().strftime('%H:%M:%S'))
