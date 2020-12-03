@@ -1,15 +1,14 @@
 import requests
 from datetime import datetime, timedelta
 from pushbullet import Pushbullet
-import os
 
 url = 'https://groceries.asda.com/api/v3/slot/view'
 
 # Config Section - os.environ['xxx']
-_days = os.environ['fDaya']
+_days = 14
 _postCode = os.environ['PostCode']
-_maxPrice = os.environ['MaxPrice']
-_pbApiKey = os.environ['PbKey']
+_maxPrice = 10.0
+_pbApiKey = os.environ['PbApiKey']
 
 startDate = datetime.today().date().strftime('%Y-%m-%dT%H:%M:%S')
 endDate = (datetime.today().date() + timedelta(days=_days)).strftime('%Y-%m-%dT%H:%M:%S')
@@ -68,13 +67,15 @@ for dayData in retVal.json()['data']['slot_days']:
         slot_status = slot_info['status']
         # parse the start date as a date time object using the json formatted date time from the json T:Z
         pSlot_start = datetime.strptime(slot_start, '%Y-%m-%dT%H:%M:%SZ')
-        if (slot_status == 'AVAILABLE' and slot_price < _maxPrice):
+        if (slot_status == 'UNAVAILABLE' and slot_price < _maxPrice):
+            print(slot_info)
             availableDateTimes.append(('\n' if (len(availableDateTimes) > 0) else '') 
             + pSlot_start.strftime('%d-%m-%Y %H:%M:%S') + ' - Now ' + slot_status.title() + f' at £{slot_price:.2f}')
 
 if (len(availableDateTimes) > 0):
     sList = f'{" ".join(availableDateTimes)}'
     pb = Pushbullet(_pbApiKey)
-    push = pb.push_note("Asda Checker", sList)
+    print (sList)
+    #push = pb.push_note("Asda Checker", sList)
 else:
     print('No slots at: ' + datetime.today().time().strftime('%H:%M:%S'))
