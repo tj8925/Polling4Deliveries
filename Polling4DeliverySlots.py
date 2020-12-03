@@ -69,7 +69,7 @@ for dayData in retVal.json()['data']['slot_days']:
         # parse the start date as a date time object using the json formatted date time from the json T:Z
         pSlot_start = datetime.strptime(slot_start, '%Y-%m-%dT%H:%M:%SZ')
         if (slot_status == 'UNAVAILABLE' and slot_price < _maxPrice):
-            print(slot_info)
+            #print(slot_info)
             availableDateTimes.append(('\n' if (len(availableDateTimes) > 0) else '') 
             + pSlot_start.strftime('%d-%m-%Y %H:%M:%S') + ' - Now ' + slot_status.title() + f' at £{slot_price:.2f}')
 
