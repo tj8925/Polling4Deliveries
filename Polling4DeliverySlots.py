@@ -8,7 +8,7 @@ url = 'https://groceries.asda.com/api/v3/slot/view'
 # Config Section - os.environ['xxx']
 _days = 14
 _postCode = os.environ['PostCode']
-_maxPrice = 7
+_maxPrice = 6
 _pbApiKey = os.environ['PbApiKey']
 
 startDate = datetime.today().date().strftime('%Y-%m-%dT%H:%M:%S')
