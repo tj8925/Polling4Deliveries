@@ -15,8 +15,9 @@ _pbApiKey = os.environ['PbApiKey']
 # Create array to hold avalible slot data
 availableDateTimes = []
 for postCode in _postCode.split(','):
+    postCode = postCode.strip() # Remove white space
+    if (not postCode): continue # Check if postCode is empty
     # POST request to API, using the required json data above
-    postCode = postCode.strip()
     retVal = requests.post(url, json=Utils.GetJsonBody(_days, postCode))
 
     #loop though all slot days
